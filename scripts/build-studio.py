@@ -46,6 +46,12 @@ def sync_schema(s,data,home=False,featured=False):
 
 def render_file(path,data,is_root=False):
     s=path.read_text();original=s
+    if '<footer' not in s:
+        match=re.search(r'<link rel="canonical" href="https://prodottopeak.com([^"]+)"',s)
+        app=next((a for a in data['apps'] if match and match[1] in [a['support'],a['privacy']]),None)
+        if app:
+            legal=f'<footer class="pp-legal-footer"><a class="brand" href="{esc(app["url"])}">{esc(app["name"])}</a><nav aria-label="Support"><a href="{esc(app["support"])}">Support</a><a href="{esc(app["privacy"])}">Privacy</a></nav></footer>'
+            s=s.replace('</body>',legal+'</body>')
     if path==ROOT/'index.html':s=block(s,'APPS','\n'.join(card(a) for a in data['apps'] if a.get('featured')));s=sync_schema(s,data,True,True)
     if path==ROOT/'apps/index.html':s=block(s,'DIRECTORY','\n'.join(card(a,True) for a in data['apps']));s=sync_schema(s,data,True)
     if '<!-- PROOF:START -->' in s:
@@ -66,7 +72,9 @@ def render_file(path,data,is_root=False):
         return tag.replace('<footer','<footer class="pp-footer"',1)
     s=re.sub(r'<footer\b[^>]*>',footer_class,s)
     css='<link rel="stylesheet" href="/assets/studio-footer.css">'
-    if css not in s:s=s.replace('</head>',css+'\n</head>')
+    if css not in s:
+        if '</head>' in s:s=s.replace('</head>',css+'\n</head>')
+        else:s=s.replace('<body',css+'<body',1)
     s=re.sub(r'<footer\b.*?</footer>',lambda m:'\n'.join(line.rstrip() for line in m.group().split('\n')),s,flags=re.S)
     if s!=original:path.write_text(s);return True
     return False
@@ -80,7 +88,7 @@ def main():
         if repo!=ROOT and not args.all_sites:continue
         site=repo/app['site_dir']
         if not site.is_dir():raise SystemExit(f'Missing website checkout: {site}')
-        paths.extend(p for p in site.rglob('*.html') if '.git' not in p.parts and ('<footer' in p.read_text()))
+        paths.extend(p for p in site.rglob('*.html') if '.git' not in p.parts and ('<footer' in p.read_text() or any('https://prodottopeak.com'+app[k] in p.read_text() for k in ['support','privacy'])))
     changed=[]
     for p in dict.fromkeys(paths):
         if render_file(p,data):changed.append(str(p))
