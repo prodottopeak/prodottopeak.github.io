@@ -99,5 +99,16 @@
   <url>
     <loc>https://prodottopeak.com/phoneaware/support.html</loc>
   </url>
-  <url><loc>https://prodottopeak.com/keli/privacy/</loc><lastmod>2026-11-17</lastmod></url>
+  <url>
+    <loc>https://prodottopeak.com/keli/privacy/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://prodottopeak.com/keli/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://prodottopeak.com/keli/support/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
 </urlset>
