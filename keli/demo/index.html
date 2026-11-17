@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Try Keli’s tools</title><meta name="robots" content="noindex"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'none'"><link rel="stylesheet" href="prototype.css"><link rel="stylesheet" href="preview.css"></head>
+<body><main class="studio">
+
+<section class="phone" aria-label="Interactive Keli browser preview">
+<div class="phone-art" aria-hidden="true"><i class="art-ribbon"></i><i class="art-loop"></i><i class="art-petal"></i><i class="number-motif art-pebble"></i><i class="number-motif art-star"></i><i class="number-motif art-ring"></i><i class="number-motif art-chip"></i></div>
+<div class="launch-screen" id="launch-screen" aria-label="Opening Keli"><span class="brand-die"><i></i><i></i><i></i><i></i></span></div>
+<header class="top"><button class="brand" data-action="mode" aria-label="Keli home"><span class="brand-die" aria-hidden="true"><i></i><i></i><i></i><i></i></span>keli<span>.</span></button><button class="icon-button" id="preferences" aria-label="Settings"></button></header>
+<div id="store-warning" role="alert"></div>
+<div id="picker-tabs" class="segmented" aria-label="Picker type"><span class="segment-thumb" aria-hidden="true"></span><button data-type="numbers">Numbers</button><button data-type="names">Names</button><button data-type="set">Sets</button></div>
+<div class="body" id="content"></div>
+<nav class="navigation" aria-label="Main"><span class="nav-thumb" aria-hidden="true"></span><button data-page="pick"></button><button data-page="library"></button><button data-page="history"></button></nav>
+</section></main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="sheet" aria-labelledby="sheet-title"></dialog>
+<input type="file" id="import-file" accept="application/json,.json" hidden>
+<script src="engine.js"></script><script src="companion.js"></script><script src="counts.js"></script><script src="product.js"></script><script src="art-motion.js"></script><script src="keli.js"></script><script src="prototype.js"></script><script src="preview.js"></script></body></html>

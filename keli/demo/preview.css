@@ -1,0 +1,22 @@
+/* An excerpt of the app, using the original prototype layout and art. */
+html,body{margin:0!important;padding:0!important;min-width:0;min-height:0;background:#fbf8f3;overflow:hidden}
+.studio{display:block;margin:0;padding:0;max-width:none}
+.phone{width:100%;height:680px;min-height:680px;border:0;border-radius:0;box-shadow:none;padding:24px 0 0}
+.top,.navigation,#picker-tabs,#launch-screen,.quiet-button,.earlier-slot,.range-link svg,.current-picker svg,.count-name>svg,.count-caption>.icon-button{display:none!important}
+.body{padding:0 22px 20px;overflow:hidden;display:flex;flex-direction:column}
+.body .hero{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.picker-heading h1{font-size:27px}.current-picker{pointer-events:none;min-height:44px}
+.range-link{pointer-events:none}.pick-footer{padding-bottom:0;margin-top:auto}.stage{height:360px;flex:1;max-height:430px}
+.result{font-family:'Arial Rounded MT Bold',ui-rounded,system-ui,sans-serif}
+.native-die{width:190px;height:210px;display:grid;place-items:center;perspective:none;transform:none}
+.die-cube{position:relative;display:block;width:150px;height:150px;transform-style:preserve-3d;transform:rotateZ(-7deg) rotateY(-13deg) rotateX(10deg)}
+.result-die .die-face{position:absolute;inset:0;width:150px;height:150px;fill:#30213f;stroke:none;backface-visibility:hidden;border-radius:15px}
+.die-face rect{fill:#eaf4aa}.die-face text{font:700 10.5px system-ui;text-anchor:middle}
+.face-0{transform:translateZ(75px)}.face-1{transform:rotateY(90deg) translateZ(75px);filter:brightness(.82)}.face-2{transform:rotateY(180deg) translateZ(75px);filter:brightness(.82)}.face-3{transform:rotateY(-90deg) translateZ(75px);filter:brightness(.82)}.face-4{transform:rotateX(90deg) translateZ(75px)}.face-5{transform:rotateX(-90deg) translateZ(75px);filter:brightness(.65)}
+.native-coin{display:block;position:relative;width:190px;height:190px;transform-style:preserve-3d;transform:rotateX(0deg);text-shadow:none}
+.native-coin.tails{transform:rotateX(180deg)}.coin-front,.coin-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:50%;box-shadow:3px 6px 0 #f18b65}
+.coin-back{transform:rotateX(180deg)}.native-coin svg{width:100%;height:100%;stroke:none}.native-coin svg svg{stroke:#30213f;stroke-width:4.615}
+.count-name{pointer-events:none}.count-list{margin-top:12px;overflow:auto;min-height:0}.count-card{flex-shrink:0}
+.preview-paused *{animation-play-state:paused!important}
+@media(max-width:350px){.body{padding:0 14px 18px}.picker-heading h1{font-size:25px}.result{font-size:90px}.phone{height:650px;min-height:650px}.stage{height:320px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
