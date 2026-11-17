@@ -1,6 +1,8 @@
 /* Bounded website examples. Reuses Keli's prototype renderer, not a second app. */
 const sampleNames='Maya\nLeo\nAva\nNoah\nZoe\nFinn';
 state.sets=[
+ make('chess','White or black?','names',{text:'White\nBlack',drawMode:'chess',repeat:true}),
+ make('number-set','Game numbers','set',{text:'2, 4, 7, 12, 20',repeat:true}),
  make('numbers','Pick a number','numbers',{repeat:true}),
  make('dice','Roll a die','numbers',{min:1,max:6,repeat:true}),
  make('names','Who goes first?','names',{text:sampleNames,repeat:true}),
@@ -55,6 +57,26 @@ reveal=(carry=[])=>{
   {transform:'translateY(0) rotateZ(353deg) rotateY(1067deg) rotateX(730deg)'}
  ],{duration:4400,easing:'ease-in-out'});
  animation?.finished.then(()=>{finishReveal(result,value,s,true);},()=>finishReveal(result,value,s));
+};
+// ChessSidePiece and ChessReveal from the current native app: two pawns,
+// a four-by-four board, then the chosen colour moving to the foreground.
+const coinHTML=symbolHTML,coinAnimation=symbolReveal;
+const pawnShape='<rect x="14" y="88" width="72" height="10" rx="4"/><path d="M23 87Q42 67 39 48H61Q58 67 77 87Z"/><ellipse cx="50" cy="32.5" rx="20" ry="16.5"/><rect x="26" y="47" width="48" height="8" rx="3"/>';
+function chessPose(white,value){if(!value)return {x:white?-52:52,y:0,scale:1,opacity:1};return (value==='White')===white?{x:0,y:-14,scale:1.3,opacity:1}:{x:white?-82:82,y:20,scale:.72,opacity:.32}}
+function chessTransform(p,angle=0){return `translate(${p.x}px,${p.y}px) scale(${p.scale}) rotate(${angle}deg)`}
+symbolHTML=(s,value)=>s.drawMode!=='chess'?coinHTML(s,value):`<div class="chess-choice"><div class="chess-scene"><div class="color-board"></div>${[true,false].map(white=>{const p=chessPose(white,value);return `<svg class="color-pawn" data-white="${white}" viewBox="0 0 100 100" aria-hidden="true" style="transform:${chessTransform(p)};opacity:${p.opacity};z-index:${p.scale>1?2:1}"><g transform="translate(3 4)" fill="${white?'#b8afc5':'#201827'}">${pawnShape}</g><g fill="${white?'#fcfaf4':'#3b3148'}">${pawnShape}</g></svg>`}).join('')}</div><b>${value?`You’re ${esc(value)}`:'White or black?'}</b><small>${value==='Black'?'You make the second move.':value==='White'?'You make the first move.':'White moves first.'}</small></div>`;
+symbolReveal=(result,s,value)=>{
+ if(s.drawMode!=='chess')return coinAnimation(result,s,value);
+ if(!canMove()){finishReveal(result,value,s);return;}
+ result.setAttribute('aria-busy','true');const labels=[...result.querySelectorAll('b,small')];labels.forEach(el=>el.style.visibility='hidden');
+ const ease=v=>{const t=Math.max(0,Math.min(1,v));return t*t*(3-2*t)},previous=recent(s).at(-2)?.values[0],turns=2+E.randomIndex(2);
+ const animations=[...result.querySelectorAll('.color-pawn')].map(el=>{
+  const white=el.dataset.white==='true',start=chessPose(white,previous),end=chessPose(white,value);
+  const frames=Array.from({length:121},(_,i)=>{const t=i/120,gather=ease(t/.14),orbit=ease((t-.14)/.58),release=ease((t-.72)/.28),a=(white?Math.PI:0)+orbit*2*Math.PI*turns,r=38+14*ease((t-.14)/.14),depth=Math.sin(a),x=start.x+(Math.cos(a)*r-start.x)*gather,y=start.y+(Math.sin(a)*23-start.y)*gather,scale=start.scale+(1+depth*.06-start.scale)*gather;return {offset:t,transform:chessTransform({x:x+(end.x-x)*release,y:y+(end.y-y)*release,scale:scale+(end.scale-scale)*release+Math.sin(release*Math.PI)*.06},Math.sin(a)*7*(1-release)),opacity:(start.opacity+(1-start.opacity)*gather)*(1-release)+end.opacity*release}});
+  return motion(el,frames,{duration:4400,easing:'linear'});
+ });
+ const finish=()=>{labels.forEach(el=>el.style.visibility='');finishReveal(result,value,s)};
+ Promise.all(animations.map(a=>a.finished)).then(finish,finish);
 };
 function selectMode(mode){
  if(mode!=='counts'&&!state.sets.some(s=>s.id===mode))return;
