@@ -1,0 +1,63 @@
+{
+  "name": "Prodotto Peak",
+  "email": "hello@prodottopeak.com",
+  "services_url": "/app-development/",
+  "apps": [
+    {
+      "id": "beeper",
+      "name": "Beeper",
+      "url": "/beeper/",
+      "category": "Repeat timers & reminders",
+      "tagline": "Set it once. Let it repeat.",
+      "status": "available",
+      "art": "/assets/beeper-timer.svg",
+      "repo": "beeper",
+      "site_dir": "docs",
+      "support": "/beeper/support.html",
+      "privacy": "/beeper/privacy-policy.html",
+      "featured": true
+    },
+    {
+      "id": "phoneaware",
+      "name": "PhoneAware",
+      "url": "/phoneaware/",
+      "category": "Screen time & mindful pauses",
+      "tagline": "Less automatic. More intentional.",
+      "status": "available",
+      "art": "/assets/phoneaware-mark.svg",
+      "repo": "phoneaware",
+      "site_dir": ".",
+      "support": "/phoneaware/support.html",
+      "privacy": "/phoneaware/privacy.html",
+      "featured": true
+    },
+    {
+      "id": "pebble",
+      "name": "Progress Pebble",
+      "url": "/pebble/",
+      "category": "Habit & activity tracking",
+      "tagline": "Track your effort. See it add up.",
+      "status": "available",
+      "art": "/assets/pebble-character.png",
+      "repo": "pebble",
+      "site_dir": ".",
+      "support": "/pebble/support/",
+      "privacy": "/pebble/privacy/",
+      "featured": true
+    },
+    {
+      "id": "keli",
+      "name": "Keli",
+      "url": "/keli/",
+      "category": "Random picks & game-night tools",
+      "tagline": "Make choosing fun.",
+      "status": "coming_soon",
+      "art": "/keli/assets/numbers.png",
+      "repo": "prodottopeak.github.io",
+      "site_dir": "keli",
+      "support": "/keli/support/",
+      "privacy": "/keli/privacy/",
+      "featured": true
+    }
+  ]
+}

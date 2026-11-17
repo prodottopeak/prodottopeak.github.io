@@ -1,0 +1,9 @@
+footer.pp-footer{flex-wrap:wrap}
+/* Shared studio navigation. Keep selectors scoped so each app keeps its own design. */
+footer .pp-studio{box-sizing:border-box;display:flex;flex:0 0 100%;width:100%;max-width:none;align-items:center;justify-content:space-between;gap:14px 30px;flex-wrap:wrap;border-top:1px solid currentColor;margin-top:8px;padding-top:20px;font:400 14px/1.5 system-ui,sans-serif;color:inherit;text-align:left}
+footer .pp-studio .pp-studio-brand{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:-.02em;color:inherit;margin:0}
+footer .pp-studio .pp-studio-brand img{display:block;flex:none;width:28px;height:28px;max-width:28px;border-radius:0;box-shadow:none;object-fit:contain}
+footer .pp-studio nav.pp-studio-links{display:flex;align-items:center;justify-content:flex-start;gap:4px 22px;flex-wrap:wrap;margin:0;padding:0}
+footer .pp-studio nav.pp-studio-links a{display:inline-flex;align-items:center;gap:8px;min-height:44px;width:auto;margin:0;padding:0;color:inherit;font:400 13px/1.5 system-ui,sans-serif;text-decoration:underline;text-underline-offset:4px;white-space:normal}
+footer .pp-studio a:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+@media(max-width:700px){footer .pp-studio{display:block;margin-top:20px;padding-top:18px}footer .pp-studio nav.pp-studio-links{display:grid;grid-template-columns:1fr 1fr;gap:2px 20px;margin-top:8px}footer .pp-studio nav.pp-studio-links a{font-size:12px}}
