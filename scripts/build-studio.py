@@ -56,7 +56,7 @@ def render_file(path,data,is_root=False):
     if path==ROOT/'apps/index.html':s=block(s,'DIRECTORY','\n'.join(card(a,True) for a in data['apps']));s=sync_schema(s,data,True)
     if '<!-- PROOF:START -->' in s:
         links=', '.join(f'<a href="{esc(a["url"])}">{esc(a["name"])}</a>' for a in data['apps'] if a.get('featured'))
-        s=block(s,'PROOF',f'<p>We build our own apps, too. Explore {links} to get a feel for our approach. See current availability in <a href="/apps/">our app directory</a>.</p>')
+        s=block(s,'PROOF',f'<p>Our own apps include {links}. You can see which are available in <a href="/apps/">our app directory</a>.</p>')
     if START in s:s=block(s,'STUDIO',navigation(data).removeprefix(START).removesuffix(END))
     elif re.search(r'<div class="studio">.*?</div>',s,re.S):s=re.sub(r'<div class="studio">.*?</div>',lambda _:navigation(data),s,flags=re.S)
     elif '</footer>' in s:
