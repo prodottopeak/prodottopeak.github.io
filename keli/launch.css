@@ -1,0 +1,17 @@
+.languages { position:relative; margin-inline-start:auto; font-size:.9rem; z-index:10; }
+.languages summary,.launch-video summary { cursor:pointer; }
+.languages ul { position:absolute; inset-inline-end:0; margin:.5rem 0; padding:.5rem; list-style:none; min-width:11rem; max-height:60vh; overflow:auto; background:#fffdf8; border:1px solid #d9c9ea; border-radius:.8rem; box-shadow:0 8px 24px #28174720; }
+.languages a { display:block; padding:.38rem .6rem; color:#35204d; white-space:nowrap; }
+.languages a[aria-current] { font-weight:700; }
+.launch-local h1 { font-size:clamp(2.8rem,6vw,5.6rem); line-height:1.08; }
+.launch-local h1 span { display:block; }
+.launch-local .platform { margin-bottom:1.2rem; }
+.launch-hero-still { display:block; margin-inline:auto; width:min(100%,255px); height:auto; border-radius:1rem; box-shadow:0 12px 32px #28174724; }
+.launch-gallery { margin-block:3rem; }
+.launch-stills { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:16px; margin-top:1.5rem; }
+.launch-stills img { display:block; width:100%; height:auto; border-radius:.65rem; }
+.launch-video { margin-top:1rem; }
+.launch-video video { display:block; width:min(100%,300px); height:auto; max-height:70vh; border-radius:.8rem; margin-top:1rem; }
+.launch-footer { display:flex; flex-wrap:wrap; justify-content:center; gap:1.25rem; padding:2rem; }
+@media(max-width:850px) { .launch-stills { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media(max-width:480px) { .launch-stills { grid-template-columns:repeat(2,minmax(0,1fr)); } }
