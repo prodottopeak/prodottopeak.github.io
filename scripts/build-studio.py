@@ -18,6 +18,8 @@ def validate(data):
         if app['id'] in ids or not re.fullmatch('[a-z0-9-]+',app['id']):raise ValueError('Invalid or duplicate app id')
         ids.add(app['id'])
         if app['status'] not in ['available','coming_soon']:raise ValueError('Invalid launch status')
+        if 'app_store_url' in app and not re.fullmatch(r'https://apps[.]apple[.]com/app/id[0-9]+', app['app_store_url']):
+            raise ValueError('Invalid App Store URL')
         for key in ['url','art','support','privacy']:
             if not app[key].startswith('/') or app[key].startswith('//') or '..' in app[key]:raise ValueError(f'Invalid local URL: {key}')
         if not re.fullmatch('[a-zA-Z0-9.-]+',app['repo']) or '..' in app['repo']:raise ValueError('Invalid repository')
@@ -26,7 +28,11 @@ def validate(data):
 def card(a,directory=False):
     soon=' · Coming soon' if a['status']=='coming_soon' else ''
     body=f'''<a class="app-card {esc(a['id'])}-card" href="{esc(a['url'])}" aria-labelledby="{esc(a['id'])}-name {esc(a['id'])}-job"><div class="card-art {esc(a['id'])}-art" aria-hidden="true"><img src="{esc(a['art'])}" width="160" height="150" alt=""></div><div class="card-copy"><p class="card-kind">{esc(a['category'])}{soon}</p><h3 id="{esc(a['id'])}-name">{esc(a['name'])}</h3><p class="card-job" id="{esc(a['id'])}-job">{esc(a['tagline'])}</p><span class="card-link">Explore {esc(a['name'])}<span aria-hidden="true">↗</span></span></div></a>'''
-    if directory:body=f'<article>{body}<nav class="directory-support" aria-label="{esc(a["name"])} help"><a href="{esc(a["support"])}">Support</a><a href="{esc(a["privacy"])}">Privacy</a></nav></article>'
+    if directory:
+        store_url = a.get('app_store_url') if a['status'] == 'available' else None
+        nav_label = "links" if store_url else "help"
+        store_link = f'<a href="{esc(store_url)}">App Store</a>' if store_url else ''
+        body=f'<article>{body}<nav class="directory-support" aria-label="{esc(a["name"])} {nav_label}">{store_link}<a href="{esc(a["support"])}">Support</a><a href="{esc(a["privacy"])}">Privacy</a></nav></article>'
     return body
 
 def navigation(data):
