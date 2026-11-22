@@ -58,7 +58,12 @@
       "site_dir": "keli",
       "support": "/keli/support/",
       "privacy": "/keli/privacy/",
-      "featured": true
+      "featured": true,
+      "platforms": [
+        "iPhone",
+        "iPad",
+        "Mac"
+      ]
     }
   ]
 }

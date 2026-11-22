@@ -27,7 +27,14 @@ def validate(data):
     if sum(a.get('featured',False) for a in data['apps'])>4:raise ValueError('Select at most four featured apps; the directory contains every app.')
 def card(a,directory=False):
     soon=' · Coming soon' if a['status']=='coming_soon' else ''
-    body=f'''<a class="app-card {esc(a['id'])}-card" href="{esc(a['url'])}" aria-labelledby="{esc(a['id'])}-name {esc(a['id'])}-job"><div class="card-art {esc(a['id'])}-art" aria-hidden="true"><img src="{esc(a['art'])}" width="160" height="150" alt=""></div><div class="card-copy"><p class="card-kind">{esc(a['category'])}{soon}</p><h3 id="{esc(a['id'])}-name">{esc(a['name'])}</h3><p class="card-job" id="{esc(a['id'])}-job">{esc(a['tagline'])}</p><span class="card-link">Explore {esc(a['name'])}<span aria-hidden="true">↗</span></span></div></a>'''
+    platforms = a.get('platforms', [])
+    platform_line = ''
+    description = ''
+    if platforms:
+        platform_id = esc(a['id']) + '-platforms'
+        platform_line = f'<p class="card-platforms" id="{platform_id}">{esc(" · ".join(platforms))}</p>'
+        description = f' aria-describedby="{platform_id}"'
+    body=f'''<a class="app-card {esc(a['id'])}-card" href="{esc(a['url'])}" aria-labelledby="{esc(a['id'])}-name {esc(a['id'])}-job"{description}><div class="card-art {esc(a['id'])}-art" aria-hidden="true"><img src="{esc(a['art'])}" width="160" height="150" alt=""></div><div class="card-copy"><p class="card-kind">{esc(a['category'])}{soon}</p><h3 id="{esc(a['id'])}-name">{esc(a['name'])}</h3><p class="card-job" id="{esc(a['id'])}-job">{esc(a['tagline'])}</p>{platform_line}<span class="card-link">Explore {esc(a['name'])}<span aria-hidden="true">↗</span></span></div></a>'''
     if directory:
         store_url = a.get('app_store_url') if a['status'] == 'available' else None
         nav_label = "links" if store_url else "help"
