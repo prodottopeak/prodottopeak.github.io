@@ -4,15 +4,17 @@ ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location('studio',ROOT/'scripts/build-studio.py');studio=importlib.util.module_from_spec(spec);spec.loader.exec_module(studio)
 class CatalogueTests(unittest.TestCase):
  def setUp(self):self.data=json.loads((ROOT/'content/studio.json').read_text())
- def test_ten_apps_do_not_expand_home_or_footer(self):
+ def test_growing_catalogue_does_not_expand_home_or_footer(self):
   original=studio.navigation(self.data)
-  for n in range(6):
+  future_count=6
+  expected_count=len(self.data['apps'])+future_count
+  for n in range(future_count):
    app=copy.deepcopy(self.data['apps'][0]);app.update(id=f'future-{n}',name=f'Future {n}',url=f'/future-{n}/',featured=False);self.data['apps'].append(app)
   studio.validate(self.data)
-  self.assertEqual(len(self.data['apps']),10)
-  self.assertEqual(sum(a['featured'] for a in self.data['apps']),4)
+  self.assertEqual(len(self.data['apps']),expected_count)
+  self.assertEqual(sum(a.get('featured', False) for a in self.data['apps']),4)
   self.assertEqual(studio.navigation(self.data),original)
-  self.assertEqual(''.join(studio.card(a,True) for a in self.data['apps']).count('<article>'),10)
+  self.assertEqual(''.join(studio.card(a,True) for a in self.data['apps']).count('<article>'),expected_count)
  def test_rejects_duplicate_id_and_fifth_feature(self):
   self.data['apps'].append(copy.deepcopy(self.data['apps'][0]))
   with self.assertRaises(ValueError):studio.validate(self.data)

@@ -64,6 +64,19 @@
         "iPad",
         "Mac"
       ]
+    },
+    {
+      "id": "scorekeeper",
+      "name": "Scorekeeper",
+      "url": "/scorekeeper/",
+      "category": "Darts scoring",
+      "tagline": "Score 501 and Cricket offline.",
+      "status": "coming_soon",
+      "art": "/scorekeeper/icon.png",
+      "repo": "prodottopeak.github.io",
+      "site_dir": "scorekeeper",
+      "support": "/scorekeeper/support/",
+      "privacy": "/scorekeeper/privacy/"
     }
   ]
 }
